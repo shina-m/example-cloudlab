@@ -309,6 +309,7 @@ int update_route(distance_vector_ recv_dist_vec) {
 
 }
 
+
         int generate_distance_vector(){
             int j = 0;
 
@@ -325,6 +326,7 @@ int update_route(distance_vector_ recv_dist_vec) {
             curr_dist_vec.num_of_dests=j;
 
         }
+
 
         int print_distance_vector(distance_vector_ dist_vec) {
 
@@ -426,9 +428,12 @@ int update_route(distance_vector_ recv_dist_vec) {
                 return 1;
             }
 
-
             while(1){
                 pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
+
+                // sleep(15);
+
+                //Sends periodic advertisement
 
                 sleep(SLEEP_TIME);
                 sendAdv();
