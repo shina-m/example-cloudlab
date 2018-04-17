@@ -422,11 +422,11 @@ int update_route(distance_vector_ recv_dist_vec) {
                 return 1;
             }
 
-            pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
             while(1){
                 // sleep(15);
 
+                pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
                 //Sends periodic advertisement
 
                 sleep(SLEEP_TIME);
