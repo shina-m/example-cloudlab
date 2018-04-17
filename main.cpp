@@ -426,10 +426,9 @@ int update_route(distance_vector_ recv_dist_vec) {
                 return 1;
             }
 
-            pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
             while(1){
-              //  pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
+                pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
                 sleep(SLEEP_TIME);
                 sendAdv();
