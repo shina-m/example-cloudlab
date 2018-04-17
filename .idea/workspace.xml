@@ -11,7 +11,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="384795ef-72de-4ac6-8137-197bb4b0cec0" name="Default" comment="" />
+    <list default="true" id="384795ef-72de-4ac6-8137-197bb4b0cec0" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -66,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="147">
-              <caret line="197" column="20" lean-forward="false" selection-start-line="197" selection-start-column="20" selection-end-line="197" selection-end-column="20" />
+              <caret line="197" column="49" lean-forward="false" selection-start-line="197" selection-start-column="49" selection-end-line="197" selection-end-column="49" />
               <folding>
                 <element signature="e#1108#1177#1" expanded="false" />
                 <element signature="e#1203#1278#1" expanded="false" />
@@ -80,24 +83,24 @@
                 <element signature="e#3223#3591#0" expanded="false" />
                 <element signature="e#3593#3964#0" expanded="false" />
                 <element signature="e#3966#4129#0" expanded="false" />
-                <element signature="e#4895#5058#0" expanded="false" />
-                <element signature="e#5332#6126#0" expanded="false" />
-                <element signature="e#7921#8337#0" expanded="false" />
-                <element signature="e#8348#8867#0" expanded="false" />
-                <element signature="e#8878#9618#0" expanded="false" />
-                <element signature="e#9620#9659#0" expanded="false" />
-                <element signature="e#9620#9855#0" expanded="false" />
-                <element signature="e#10536#10925#0" expanded="false" />
+                <element signature="e#4905#5068#0" expanded="false" />
+                <element signature="e#5342#6136#0" expanded="false" />
+                <element signature="e#7931#8347#0" expanded="false" />
+                <element signature="e#8358#8877#0" expanded="false" />
+                <element signature="e#8888#9628#0" expanded="false" />
+                <element signature="e#9630#9669#0" expanded="false" />
+                <element signature="e#9630#9865#0" expanded="false" />
+                <element signature="e#10546#10935#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="socket.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="socket.h" pinned="false" current-in-tab="false">
         <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/sys/socket.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
-              <caret line="714" column="0" lean-forward="true" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="697" column="17" lean-forward="false" selection-start-line="697" selection-start-column="17" selection-end-line="697" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -143,6 +146,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="in.h" pinned="false" current-in-tab="true">
+        <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/netinet/in.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="427">
+              <caret line="120" column="8" lean-forward="false" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="pthread.h" pinned="false" current-in-tab="false">
         <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/pthread.h">
           <provider selected="true" editor-type-id="text-editor">
@@ -168,16 +181,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
               <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="d.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/d.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -355,12 +358,12 @@
       <workItem from="1523663197298" duration="6051000" />
       <workItem from="1523673636938" duration="17352000" />
       <workItem from="1523719322644" duration="16495000" />
-      <workItem from="1523939312758" duration="6295000" />
+      <workItem from="1523939312758" duration="6432000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46736000" />
+    <option name="totallyTimeSpent" value="46873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -514,14 +517,14 @@
             <element signature="e#3223#3591#0" expanded="false" />
             <element signature="e#3593#3964#0" expanded="false" />
             <element signature="e#3966#4129#0" expanded="false" />
-            <element signature="e#4895#5058#0" expanded="false" />
-            <element signature="e#5332#6126#0" expanded="false" />
-            <element signature="e#7921#8337#0" expanded="false" />
-            <element signature="e#8348#8867#0" expanded="false" />
-            <element signature="e#8878#9618#0" expanded="false" />
-            <element signature="e#9620#9659#0" expanded="false" />
-            <element signature="e#9620#9855#0" expanded="false" />
-            <element signature="e#10536#10925#0" expanded="false" />
+            <element signature="e#4905#5068#0" expanded="false" />
+            <element signature="e#5342#6136#0" expanded="false" />
+            <element signature="e#7931#8347#0" expanded="false" />
+            <element signature="e#8358#8877#0" expanded="false" />
+            <element signature="e#8888#9628#0" expanded="false" />
+            <element signature="e#9630#9669#0" expanded="false" />
+            <element signature="e#9630#9865#0" expanded="false" />
+            <element signature="e#10546#10935#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -592,14 +595,14 @@
             <element signature="e#3223#3591#0" expanded="false" />
             <element signature="e#3593#3964#0" expanded="false" />
             <element signature="e#3966#4129#0" expanded="false" />
-            <element signature="e#4895#5058#0" expanded="false" />
-            <element signature="e#5332#6126#0" expanded="false" />
-            <element signature="e#7921#8337#0" expanded="false" />
-            <element signature="e#8348#8867#0" expanded="false" />
-            <element signature="e#8878#9618#0" expanded="false" />
-            <element signature="e#9620#9659#0" expanded="false" />
-            <element signature="e#9620#9855#0" expanded="false" />
-            <element signature="e#10536#10925#0" expanded="false" />
+            <element signature="e#4905#5068#0" expanded="false" />
+            <element signature="e#5342#6136#0" expanded="false" />
+            <element signature="e#7931#8347#0" expanded="false" />
+            <element signature="e#8358#8877#0" expanded="false" />
+            <element signature="e#8888#9628#0" expanded="false" />
+            <element signature="e#9630#9669#0" expanded="false" />
+            <element signature="e#9630#9865#0" expanded="false" />
+            <element signature="e#10546#10935#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -629,14 +632,14 @@
             <element signature="e#3223#3591#0" expanded="false" />
             <element signature="e#3593#3964#0" expanded="false" />
             <element signature="e#3966#4129#0" expanded="false" />
-            <element signature="e#4895#5058#0" expanded="false" />
-            <element signature="e#5332#6126#0" expanded="false" />
-            <element signature="e#7921#8337#0" expanded="false" />
-            <element signature="e#8348#8867#0" expanded="false" />
-            <element signature="e#8878#9618#0" expanded="false" />
-            <element signature="e#9620#9659#0" expanded="false" />
-            <element signature="e#9620#9855#0" expanded="false" />
-            <element signature="e#10536#10925#0" expanded="false" />
+            <element signature="e#4905#5068#0" expanded="false" />
+            <element signature="e#5342#6136#0" expanded="false" />
+            <element signature="e#7931#8347#0" expanded="false" />
+            <element signature="e#8358#8877#0" expanded="false" />
+            <element signature="e#8888#9628#0" expanded="false" />
+            <element signature="e#9630#9669#0" expanded="false" />
+            <element signature="e#9630#9865#0" expanded="false" />
+            <element signature="e#10546#10935#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -731,14 +734,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="57" lean-forward="false" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/netinet/in.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="120" column="8" lean-forward="false" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -888,10 +883,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/sys/socket.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="697" column="17" lean-forward="false" selection-start-line="697" selection-start-column="17" selection-end-line="697" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
-          <caret line="197" column="20" lean-forward="false" selection-start-line="197" selection-start-column="20" selection-end-line="197" selection-end-column="20" />
+          <caret line="197" column="49" lean-forward="false" selection-start-line="197" selection-start-column="49" selection-end-line="197" selection-end-column="49" />
           <folding>
             <element signature="e#1108#1177#1" expanded="false" />
             <element signature="e#1203#1278#1" expanded="false" />
@@ -905,22 +908,22 @@
             <element signature="e#3223#3591#0" expanded="false" />
             <element signature="e#3593#3964#0" expanded="false" />
             <element signature="e#3966#4129#0" expanded="false" />
-            <element signature="e#4895#5058#0" expanded="false" />
-            <element signature="e#5332#6126#0" expanded="false" />
-            <element signature="e#7921#8337#0" expanded="false" />
-            <element signature="e#8348#8867#0" expanded="false" />
-            <element signature="e#8878#9618#0" expanded="false" />
-            <element signature="e#9620#9659#0" expanded="false" />
-            <element signature="e#9620#9855#0" expanded="false" />
-            <element signature="e#10536#10925#0" expanded="false" />
+            <element signature="e#4905#5068#0" expanded="false" />
+            <element signature="e#5342#6136#0" expanded="false" />
+            <element signature="e#7931#8347#0" expanded="false" />
+            <element signature="e#8358#8877#0" expanded="false" />
+            <element signature="e#8888#9628#0" expanded="false" />
+            <element signature="e#9630#9669#0" expanded="false" />
+            <element signature="e#9630#9865#0" expanded="false" />
+            <element signature="e#10546#10935#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/sys/socket.h">
+    <entry file="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/netinet/in.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="714" column="0" lean-forward="true" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
+        <state relative-caret-position="427">
+          <caret line="120" column="8" lean-forward="false" selection-start-line="120" selection-start-column="8" selection-end-line="120" selection-end-column="8" />
           <folding />
         </state>
       </provider>

@@ -195,7 +195,7 @@ int getRouteLoc(char a){
 void createSocket(int port) {
 
 
-    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)/*(PF_INET, SOCK_DGRAM, IPPROTO_UDP)*/) < 0){
+    if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)/*(PF_INET, SOCK_DGRAM, IPPROTO_UDP)*/) < 0){
         // sock = socket(AF_INET, SOCK_DGRAM, 0);
         cout <<"Error 1 \n";
         //  displayError("There is problem while sending request!");
@@ -426,11 +426,11 @@ int update_route(distance_vector_ recv_dist_vec) {
             print_routing_table();
 
             //Initializes mutex lock
-            if (pthread_mutex_init(&lck, NULL) != 0)
+         /*   if (pthread_mutex_init(&lck, NULL) != 0)
             {
                 printf("\n mutex init failed\n");
                 return 1;
-            }
+            }*/
 
             while(1){
                 pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
