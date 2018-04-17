@@ -375,9 +375,12 @@ int update_route(distance_vector_ recv_dist_vec) {
  * Function to call a new thread
  */
         void *recv_adv(void *recv_sock){
-            cout<<"Creating recv thread\n\n";
-            int rsock=*(int*)recv_sock;
-            receive(rsock);
+            while(1){
+                cout<<"Creating recv thread\n\n";
+                int rsock=*(int*)recv_sock;
+                receive(rsock);
+            }
+
         }
 
 
@@ -424,11 +427,12 @@ int update_route(distance_vector_ recv_dist_vec) {
                 return 1;
             }
 
+            pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
             while(1){
                 // sleep(15);
 
-                pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
+              //  pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
                 //Sends periodic advertisement
 
                 sleep(SLEEP_TIME);
