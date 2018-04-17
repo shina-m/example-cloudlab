@@ -351,11 +351,9 @@ int update_route(distance_vector_ recv_dist_vec) {
 
         void receive(int rsock){
 
-            cout << "hello2 \n";
             distance_vector_ recv_dist_vec;
 
             unsigned int len=sizeof(struct sockaddr_in);
-            char* recv_node;
             int no=1;
 
             no = recvfrom(rsock,&recv_dist_vec,sizeof(recv_dist_vec),0,(struct sockaddr *)&address, &len);
@@ -368,17 +366,13 @@ int update_route(distance_vector_ recv_dist_vec) {
 
             update_route(recv_dist_vec);
             print_routing_table();
-            cout << "hello4 \n";
             generate_distance_vector();
-            cout << "hello5 \n";
-            //  sendAdv();
         }
 
 /*
  * Function to call a new thread
  */
         void *recv_adv(void *recv_sock){
-            cout << "hello1 \n";
             cout<<"Creating recv thread\n";
             int rsock=*(int*)recv_sock;
             receive(rsock);
@@ -386,9 +380,9 @@ int update_route(distance_vector_ recv_dist_vec) {
 
 
         int main(int argc, char *argv[]) {
+            pthread_t recv_thread;
 
             char config_file_dir[500];
-
             strcpy(config_file_dir, argv[1]);
 
             if (argc != 2)         //Test for correct number of parameters
@@ -397,14 +391,10 @@ int update_route(distance_vector_ recv_dist_vec) {
                 exit(1);
             }
 
-            pthread_t recv_thread;
-
             read_config_file(config_file_dir);
             generate_distance_vector();
             cout << "Port No: " << port << "\n\n";
-           // print_routing_table();
             print_neighbor_info();
-
             createSocket(port);
 
             sendAdv();
@@ -426,15 +416,15 @@ int update_route(distance_vector_ recv_dist_vec) {
             print_routing_table();
 
             //Initializes mutex lock
-         /*   if (pthread_mutex_init(&lck, NULL) != 0)
+           if (pthread_mutex_init(&lck, NULL) != 0)
             {
                 printf("\n mutex init failed\n");
                 return 1;
-            }*/
+            }
+
+            pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
             while(1){
-                pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
-
                 // sleep(15);
 
                 //Sends periodic advertisement
@@ -444,7 +434,7 @@ int update_route(distance_vector_ recv_dist_vec) {
 
             }
 
-
+            close(sock);
             pthread_mutex_destroy(&lck);
             return 0;
         }
