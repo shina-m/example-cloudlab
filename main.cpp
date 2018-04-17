@@ -200,6 +200,9 @@ void createSocket(int port) {
         cout <<"Error 1 \n";
         //  displayError("There is problem while sending request!");
     }
+    int one = 1;
+    setsockopt(sock, SOL_SOCKET, SO_REUSEPORT,&one, sizeof(one));
+
     cout <<port <<"\n";
 
     int leng = sizeof(address);
@@ -306,68 +309,6 @@ int update_route(distance_vector_ recv_dist_vec) {
 
 }
 
-int update_route2(distance_vector_ recv_dist_vec) {
-
-    cout << "hello3 \n";
-
-    int dist_to_recv = 0;
-
-    //get cost to sender_node
-    for (int i = 0; i < NODE_COUNT; i++) {
-        if (neighbors[i].name != '\0' && neighbors[i].name == recv_dist_vec.sender) {
-            for (int j = 0; j < NODE_COUNT; j++) {
-                if (neighbors[i].name == route_table[j].dest) {
-                    dist_to_recv = route_table[j].dist;
-                }
-            }
-
-        }
-    }
-
-
-
-    //  pthread_mutex_lock(&lck);
-
-    bool found[NODE_COUNT];
-
-    for (int m = 0; m < NODE_COUNT && !found[m]; m++) {
-
-        if (recv_dist_vec.content[m].dest == '\0') {
-            continue;
-        }
-            //compare name of current node to
-
-        else if (int rid = getRouteLoc(recv_dist_vec.content[m].dest) != -1) {
-            cout << "YES\n";
-
-            if ((recv_dist_vec.content[m].dist + dist_to_recv) < route_table[rid].dist) {
-                // if yes, update cost and nexthop
-                route_table[rid].dist = recv_dist_vec.content[m].dist + dist_to_recv;
-                route_table[rid].nextHop = recv_dist_vec.sender;
-            }
-
-            found[m] = true;
-            break;
-        }
-
-        else {
-            cout << "what\n";
-            for (int k = 0; k < NODE_COUNT; k++) {
-                cout << "what2\n";
-                if (route_table[k].dest == '\0') {
-                    cout << "what3\n";
-                    route_table[k].dest = recv_dist_vec.content[m].dest;
-                    route_table[k].dist = recv_dist_vec.content[m].dist + dist_to_recv;
-                    route_table[k].nextHop = recv_dist_vec.sender;
-
-                }
-            }
-        }
-    }
-}
-
-
-
         int generate_distance_vector(){
             int j = 0;
 
@@ -384,7 +325,6 @@ int update_route2(distance_vector_ recv_dist_vec) {
             curr_dist_vec.num_of_dests=j;
 
         }
-
 
         int print_distance_vector(distance_vector_ dist_vec) {
 
