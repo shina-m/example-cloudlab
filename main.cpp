@@ -202,6 +202,10 @@ void createSocket(int port) {
     }
     int one = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEPORT,&one, sizeof(one));
+    const int       optVal = 1;
+    const socklen_t optLen = sizeof(optVal);
+
+    int rtn = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void*) &optVal, optLen);
 
     cout <<port <<"\n";
 
