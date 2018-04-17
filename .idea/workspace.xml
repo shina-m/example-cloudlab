@@ -68,8 +68,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="426" column="21" lean-forward="false" selection-start-line="426" selection-start-column="21" selection-end-line="426" selection-end-column="21" />
+            <state relative-caret-position="215">
+              <caret line="380" column="9" lean-forward="true" selection-start-line="380" selection-start-column="9" selection-end-line="380" selection-end-column="9" />
               <folding>
                 <element signature="e#1108#1177#1" expanded="false" />
                 <element signature="e#1203#1278#1" expanded="false" />
@@ -85,12 +85,12 @@
                 <element signature="e#3966#4129#0" expanded="false" />
                 <element signature="e#4131#5339#0" expanded="false" />
                 <element signature="e#4905#5068#0" expanded="false" />
-                <element signature="e#5342#6136#0" expanded="false" />
-                <element signature="e#6138#7920#0" expanded="false" />
-                <element signature="e#7931#8347#0" expanded="false" />
-                <element signature="e#8358#8877#0" expanded="false" />
-                <element signature="e#9475#9514#0" expanded="false" />
-                <element signature="e#10318#10707#0" expanded="false" />
+                <element signature="e#6150#7932#0" expanded="false" />
+                <element signature="e#7943#8359#0" expanded="false" />
+                <element signature="e#8370#8889#0" expanded="false" />
+                <element signature="e#8900#9493#0" expanded="false" />
+                <element signature="e#9495#9534#0" expanded="false" />
+                <element signature="e#10340#10729#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -200,7 +200,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>address</find>
       <find>pthread_create</find>
       <find>hostname</find>
       <find>sender</find>
@@ -230,6 +229,7 @@
       <find>socket</find>
       <find>socke</find>
       <find>bind</find>
+      <find>cout</find>
     </findStrings>
     <replaceStrings>
       <replace>''</replace>
@@ -358,15 +358,16 @@
       <workItem from="1523663197298" duration="6051000" />
       <workItem from="1523673636938" duration="17352000" />
       <workItem from="1523719322644" duration="16495000" />
-      <workItem from="1523939312758" duration="8956000" />
+      <workItem from="1523939312758" duration="9320000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49397000" />
+    <option name="totallyTimeSpent" value="49761000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14023961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -375,7 +376,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45074946" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33978236" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33978236" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41967717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -396,10 +397,17 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>425</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -503,12 +511,12 @@
             <element signature="e#3966#4129#0" expanded="false" />
             <element signature="e#4131#5339#0" expanded="false" />
             <element signature="e#4905#5068#0" expanded="false" />
-            <element signature="e#5342#6136#0" expanded="false" />
-            <element signature="e#6138#7920#0" expanded="false" />
-            <element signature="e#7931#8347#0" expanded="false" />
-            <element signature="e#8358#8877#0" expanded="false" />
-            <element signature="e#9475#9514#0" expanded="false" />
-            <element signature="e#10318#10707#0" expanded="false" />
+            <element signature="e#6150#7932#0" expanded="false" />
+            <element signature="e#7943#8359#0" expanded="false" />
+            <element signature="e#8370#8889#0" expanded="false" />
+            <element signature="e#8900#9493#0" expanded="false" />
+            <element signature="e#9495#9534#0" expanded="false" />
+            <element signature="e#10340#10729#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -581,12 +589,12 @@
             <element signature="e#3966#4129#0" expanded="false" />
             <element signature="e#4131#5339#0" expanded="false" />
             <element signature="e#4905#5068#0" expanded="false" />
-            <element signature="e#5342#6136#0" expanded="false" />
-            <element signature="e#6138#7920#0" expanded="false" />
-            <element signature="e#7931#8347#0" expanded="false" />
-            <element signature="e#8358#8877#0" expanded="false" />
-            <element signature="e#9475#9514#0" expanded="false" />
-            <element signature="e#10318#10707#0" expanded="false" />
+            <element signature="e#6150#7932#0" expanded="false" />
+            <element signature="e#7943#8359#0" expanded="false" />
+            <element signature="e#8370#8889#0" expanded="false" />
+            <element signature="e#8900#9493#0" expanded="false" />
+            <element signature="e#9495#9534#0" expanded="false" />
+            <element signature="e#10340#10729#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -618,12 +626,12 @@
             <element signature="e#3966#4129#0" expanded="false" />
             <element signature="e#4131#5339#0" expanded="false" />
             <element signature="e#4905#5068#0" expanded="false" />
-            <element signature="e#5342#6136#0" expanded="false" />
-            <element signature="e#6138#7920#0" expanded="false" />
-            <element signature="e#7931#8347#0" expanded="false" />
-            <element signature="e#8358#8877#0" expanded="false" />
-            <element signature="e#9475#9514#0" expanded="false" />
-            <element signature="e#10318#10707#0" expanded="false" />
+            <element signature="e#6150#7932#0" expanded="false" />
+            <element signature="e#7943#8359#0" expanded="false" />
+            <element signature="e#8370#8889#0" expanded="false" />
+            <element signature="e#8900#9493#0" expanded="false" />
+            <element signature="e#9495#9534#0" expanded="false" />
+            <element signature="e#10340#10729#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -893,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="426" column="21" lean-forward="false" selection-start-line="426" selection-start-column="21" selection-end-line="426" selection-end-column="21" />
+        <state relative-caret-position="215">
+          <caret line="380" column="9" lean-forward="true" selection-start-line="380" selection-start-column="9" selection-end-line="380" selection-end-column="9" />
           <folding>
             <element signature="e#1108#1177#1" expanded="false" />
             <element signature="e#1203#1278#1" expanded="false" />
@@ -910,12 +918,12 @@
             <element signature="e#3966#4129#0" expanded="false" />
             <element signature="e#4131#5339#0" expanded="false" />
             <element signature="e#4905#5068#0" expanded="false" />
-            <element signature="e#5342#6136#0" expanded="false" />
-            <element signature="e#6138#7920#0" expanded="false" />
-            <element signature="e#7931#8347#0" expanded="false" />
-            <element signature="e#8358#8877#0" expanded="false" />
-            <element signature="e#9475#9514#0" expanded="false" />
-            <element signature="e#10318#10707#0" expanded="false" />
+            <element signature="e#6150#7932#0" expanded="false" />
+            <element signature="e#7943#8359#0" expanded="false" />
+            <element signature="e#8370#8889#0" expanded="false" />
+            <element signature="e#8900#9493#0" expanded="false" />
+            <element signature="e#9495#9534#0" expanded="false" />
+            <element signature="e#10340#10729#0" expanded="false" />
           </folding>
         </state>
       </provider>

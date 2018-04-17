@@ -236,12 +236,14 @@ void sendAdv() {
 
     neighbor_addr.sin_family = AF_INET;
 
+    cout << "sending distance vector to neighbor: ";
+
     for (int i = 0; i < NODE_COUNT && neighbors[i].name != '\0'; i++) {
 
         inet_pton(AF_INET, neighbors[i].ip.c_str(), &(neighbor_addr.sin_addr.s_addr));
         neighbor_addr.sin_port = htons(port);
         unsigned int len = sizeof(struct sockaddr_in);
-        cout << "sending distance vector to neighbor: " << neighbors[i].name << endl;
+        cout << neighbors[i].name << "  ";
 
         int no = sendto(sock, &curr_dist_vec, sizeof(curr_dist_vec), 0,
                         (const struct sockaddr *) &neighbor_addr, len);
@@ -251,7 +253,7 @@ void sendAdv() {
         }
     }
 
-    // cout << "sent to all neigbors..." << endl << "\n";
+     cout << "\nsent to all neighbors..." << endl << "\n";
 }
 
 int update_route(distance_vector_ recv_dist_vec) {
@@ -362,7 +364,7 @@ int update_route(distance_vector_ recv_dist_vec) {
                 // displayError("recv error");
             }
 
-            cout<<"Routing table received from: " << recv_dist_vec.sender <<endl;
+            cout<<"Routing table received from: " << recv_dist_vec.sender <<endl << endl;
 
             update_route(recv_dist_vec);
             print_routing_table();
@@ -373,7 +375,7 @@ int update_route(distance_vector_ recv_dist_vec) {
  * Function to call a new thread
  */
         void *recv_adv(void *recv_sock){
-            cout<<"Creating recv thread\n";
+            cout<<"Creating recv thread\n\n";
             int rsock=*(int*)recv_sock;
             receive(rsock);
         }
