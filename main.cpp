@@ -249,7 +249,7 @@ void sendAdv() {
 
 int update_route(distance_vector_ recv_dist_vec) {
 
-    cout << "hello3 \n";
+    //  cout << "hello3 \n";
 
     int dist_to_recv;
 
@@ -265,55 +265,46 @@ int update_route(distance_vector_ recv_dist_vec) {
         }
     }
 
+    pthread_mutex_lock(&lck);
 
-    cout << "dt: " << dist_to_recv << "\n\n";
-
-  //  pthread_mutex_lock(&lck);
-
+    int rid;
 
     for(int m=0;m<NODE_COUNT;m++) {
         if (recv_dist_vec.content[m].dest == '\0' || recv_dist_vec.content[m].dest == hostname) {
             continue;
         }
 
-        for (int k = 0; k < NODE_COUNT; k++) {
+        //for (int k = 0; k < NODE_COUNT; k++) {
 
-          if (getRouteLoc(recv_dist_vec.content[m].dest) != -1) {
-                //check is new cost will be smaller
-             // cout << "what4\n\n";
-             // cout << recv_dist_vec.content[m].dest << "\n\n";
-                if ((recv_dist_vec.content[m].dist + dist_to_recv) < route_table[k].dist) {
-                    // if yes, update cost and nexthop
-                    route_table[k].dist = recv_dist_vec.content[m].dist + dist_to_recv;
-                    route_table[k].nextHop = recv_dist_vec.sender;
-                }
+        //if route for this node already exists
+        rid = getRouteLoc(recv_dist_vec.content[m].dest);
+        if (rid != -1) {
+            //check is new cost will be smaller
+            // cout << "what4\n\n";
+            // cout << recv_dist_vec.content[m].dest << "\n\n";
+            if ((recv_dist_vec.content[m].dist + dist_to_recv) < route_table[rid].dist) {
+                // if yes, update cost and nexthop
+                route_table[rid].dist = recv_dist_vec.content[m].dist + dist_to_recv;
+                route_table[rid].nextHop = recv_dist_vec.sender;
+            }
 
-            } else if (route_table[k].dest == '\0') {
-            //  cout << "what3\n";
-              route_table[k].dest = recv_dist_vec.content[m].dest;
-              route_table[k].dist = recv_dist_vec.content[m].dist + dist_to_recv;
-              route_table[k].nextHop = recv_dist_vec.sender;
-
-          }
-        }
-
-/*
-    for (int j = 0; j < NODE_COUNT; j++) {
-        if (recv_dist_vec.content[j].dest != '\0' && getRouteLoc(recv_dist_vec.content[j].dest) == -1) {
-
+        } else
             for (int k = 0; k < NODE_COUNT; k++) {
 
                 if (route_table[k].dest == '\0') {
-                    route_table[k].dest = recv_dist_vec.content[j].dest;
-                    route_table[k].dist = recv_dist_vec.content[j].dist + dist_to_recv;
+                    route_table[k].dest = recv_dist_vec.content[m].dest;
+                    route_table[k].dist = recv_dist_vec.content[m].dist + dist_to_recv;
                     route_table[k].nextHop = recv_dist_vec.sender;
+                    break;
                 }
             }
-        }*/
+    }
 
-        // pthread_mutex_unlock(&lck);
 
-    }}
+
+    pthread_mutex_unlock(&lck);
+
+}
 
 int update_route2(distance_vector_ recv_dist_vec) {
 
