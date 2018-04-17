@@ -195,7 +195,7 @@ int getRouteLoc(char a){
 void createSocket(int port) {
 
 
-    if ((sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0){
+    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)/*(PF_INET, SOCK_DGRAM, IPPROTO_UDP)*/) < 0){
         // sock = socket(AF_INET, SOCK_DGRAM, 0);
         cout <<"Error 1 \n";
         //  displayError("There is problem while sending request!");
