@@ -64,7 +64,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="383">
@@ -91,6 +91,16 @@
                 <element signature="e#9495#9534#0" expanded="false" />
                 <element signature="e#10389#10778#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -175,16 +185,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="f.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/f.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="g.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/g.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -216,7 +216,6 @@
       <find>port</find>
       <find>sending</find>
       <find>hello</find>
-      <find>creating</find>
       <find>sockop</find>
       <find>dt</find>
       <find>routing</find>
@@ -229,6 +228,7 @@
       <find>socke</find>
       <find>bind</find>
       <find>cout</find>
+      <find>creating</find>
     </findStrings>
     <replaceStrings>
       <replace>''</replace>
@@ -251,7 +251,6 @@
         <option value="$PROJECT_DIR$/config_file/c.txt" />
         <option value="$PROJECT_DIR$/config_file/e.txt" />
         <option value="$PROJECT_DIR$/config_file/g.txt" />
-        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/config/a.txt" />
         <option value="$PROJECT_DIR$/config/b.txt" />
         <option value="$PROJECT_DIR$/config/c.txt" />
@@ -260,6 +259,7 @@
         <option value="$PROJECT_DIR$/config/f.txt" />
         <option value="$PROJECT_DIR$/config/g.txt" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/Makefile" />
       </list>
     </option>
   </component>
@@ -296,11 +296,6 @@
             <path>
               <item name="dv" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
               <item name="dv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dv" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
-              <item name="dv" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -357,12 +352,12 @@
       <workItem from="1523663197298" duration="6051000" />
       <workItem from="1523673636938" duration="17352000" />
       <workItem from="1523719322644" duration="16495000" />
-      <workItem from="1523939312758" duration="9723000" />
+      <workItem from="1523939312758" duration="10015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50164000" />
+    <option name="totallyTimeSpent" value="50456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -697,14 +692,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web.cpp" />
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/functional">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -923,6 +910,14 @@
             <element signature="e#9495#9534#0" expanded="false" />
             <element signature="e#10389#10778#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
