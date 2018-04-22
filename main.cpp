@@ -1,58 +1,27 @@
 #include <iostream>
-#include <cstdlib>
 #include <string.h>
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sstream>
 #include <fstream>
 #include <time.h>
-#include <math.h>
 #include <cmath>
-#include <netdb.h>
-#include <sys/time.h>
 #include <map>
 #include <arpa/inet.h>
-#include <pthread.h>
 #include <vector>
-#include <string>
-#include <sstream>
-#include <iterator>
-#include <iostream>
-#include <cstdlib>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <sstream>
-#include <fstream>
-#include <time.h>
-#include <math.h>
-#include <cmath>
-#include <netdb.h>
-#include <sys/time.h>
-#include <map>
-#include <arpa/inet.h>
-#include <pthread.h>
-
-
 
 using namespace std;
 
-
-#define NODE_COUNT 6
+#define NODE_COUNT 10
 #define HOST_NAME_LEN 2
-#define SLEEP_TIME 10
+#define SLEEP_TIME 15
 
 struct sockaddr_in address;
 pthread_mutex_t lck;
 int sock;
 unsigned int port;
 char hostname;
-
-void displayError(const char *errorMsg);
 
 struct route_info{
 
@@ -82,29 +51,12 @@ struct distance_vector_ {
 } curr_dist_vec;
 
 
-//template<typename Out>
-
-/*void split(const std::string &s, char delim, Out result) {
-    std::stringstream ss(s);
-    std::string item;
-    while (std::getline(ss, item, delim)) {
-        *(result++) = item;
-    }
-}
-
-std::vector<std::string> split(const std::string &s, char delim) {
-    std::vector<std::string> elems;
-    split(s, delim, std::back_inserter(elems));
-    return elems;
-}*/
-
-bool read_config_file(char *LANfileName) {
+bool read_config_file(char *config_file) {
     string delimiter = " ";
     string token;
 
-
-    // open the LAN file
-    std::ifstream inFile(LANfileName);
+    // open the config file
+    std::ifstream inFile(config_file);
 
     //output error if file doesn't open
     if (!inFile) {
@@ -136,15 +88,6 @@ bool read_config_file(char *LANfileName) {
         while (ss >> buf)
             tokens.push_back(buf);
 
-        /*   vector<string> tokens{istream_iterator<string>{iss},
-                                 istream_iterator<string>{}};*/
-
-        /*    for (int j = 0; j < 3; j++) {
-                cout << tokens[j] << "\t";
-            }
-
-            cout << "\n";*/
-        // strcpy(ip, tokens[2].c_str());
         route_table[j] = {tokens[0][0], tokens[0][0], stoi(tokens[1].c_str())};
         neighbors[j - 1] = {tokens[0][0], tokens[2], inet_addr(tokens[2].c_str())};
 
@@ -193,18 +136,14 @@ int getRouteLoc(char a){
 void createSocket(int port) {
 
 
-    if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)/*(PF_INET, SOCK_DGRAM, IPPROTO_UDP)*/) < 0){
-        // sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0){
         cout <<"Error 1 \n";
         //  displayError("There is problem while sending request!");
     }
+
     int one = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEPORT,&one, sizeof(one));
-
-    const int       optVal = 1;
-    const socklen_t optLen = sizeof(optVal);
-
-    int rtn = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void*) &optVal, optLen);
+    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void*) &one, sizeof(one));
 
     cout <<port <<"\n";
 
@@ -215,16 +154,11 @@ void createSocket(int port) {
     address.sin_port = htons(port);
     address.sin_addr.s_addr = htons(INADDR_ANY);
 
-    /*   int yes = 1;
-       if (setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof(int)) == -1) {
-           perror("setsockopt");
-           exit(1);
-       }
-   */
+
+
     if(::bind(sock, (struct sockaddr *) &address, leng) < 0){
-        // if (::bind(sock, (struct sockaddr *) &address,leng) < 0) {
         printf("\"createSocket() failed\n\"");
-        // exit;
+         exit;
         //displayError("There is problem while sending request!");
     }
 }
@@ -248,6 +182,7 @@ void sendAdv() {
                         (const struct sockaddr *) &neighbor_addr, len);
         if (no < 0) {
             cout <<"Error 2 \n";
+            exit;
             //   displayError("There is problem while sending request!");
         }
     }
@@ -256,8 +191,6 @@ void sendAdv() {
 }
 
 int update_route(distance_vector_ recv_dist_vec) {
-
-    //  cout << "hello3 \n";
 
     int dist_to_recv;
 
@@ -282,14 +215,9 @@ int update_route(distance_vector_ recv_dist_vec) {
             continue;
         }
 
-        //for (int k = 0; k < NODE_COUNT; k++) {
-
         //if route for this node already exists
         rid = getRouteLoc(recv_dist_vec.content[m].dest);
         if (rid != -1) {
-            //check is new cost will be smaller
-            // cout << "what4\n\n";
-            // cout << recv_dist_vec.content[m].dest << "\n\n";
             if ((recv_dist_vec.content[m].dist + dist_to_recv) < route_table[rid].dist) {
                 // if yes, update cost and nexthop
                 route_table[rid].dist = recv_dist_vec.content[m].dist + dist_to_recv;
@@ -307,8 +235,6 @@ int update_route(distance_vector_ recv_dist_vec) {
                 }
             }
     }
-
-
 
     pthread_mutex_unlock(&lck);
 
@@ -407,18 +333,6 @@ int main(int argc, char *argv[]) {
     sendAdv();
     print_distance_vector(curr_dist_vec);
 
-    /* distance_vector_ recv_dist_vec;
-
-     recv_dist_vec.sender = 'B';
-     recv_dist_vec.num_of_dests = 4;
-     recv_dist_vec.content[0] = {'S', 1};
-     recv_dist_vec.content[1] ={'B',1};
-     recv_dist_vec.content[2] ={'C',1};
-     recv_dist_vec.content[3] ={'F',1};
-
-     print_routing_table();
-
-     update_route(recv_dist_vec);*/
 
     print_routing_table();
 
@@ -432,10 +346,6 @@ int main(int argc, char *argv[]) {
     pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
     while(1){
-        // sleep(15);
-
-        //  pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
-        //Sends periodic advertisement
 
         sleep(SLEEP_TIME);
         sendAdv();
