@@ -61,7 +61,7 @@ struct distance_vector_ {
 /*
  * This generates an up-to-date distance vector based on the current routing table
  * */
-int generate_distance_vector(){
+void generate_distance_vector(){
     int j = 0;
 
     for (int i = 0; i < NODE_COUNT; i++) {
@@ -82,7 +82,7 @@ int generate_distance_vector(){
  * Reads the config file for this node and uses it to generate the neighbors table and
  * initial routing table
  * */
-bool read_config_file(char *config_file) {
+void read_config_file(char *config_file) {
     string delimiter = " ";
     string token;
 
@@ -129,16 +129,16 @@ bool read_config_file(char *config_file) {
     generate_distance_vector();
 
     //display port number
-    cout << "\nPort No: " << port << "\n\n";
+    cout << "\nPort No: " << port << "\n" << "****************" << "\n\n";
 
 }
 
 /*
  * Prints out the routing table
  * */
-int print_routing_table() {
+void print_routing_table() {
 
-    cout << "Routing Table" << "\n" << "****************" << "\n";
+    cout << "Current Routing Table" << "\n" << "****************" << "\n";
     for (int i = 0; i < (sizeof(route_table) / sizeof(route_info)); i++) {
         if (route_table[i].dest== '\0')
             continue;
@@ -152,7 +152,7 @@ int print_routing_table() {
 /*
  * Prints out the neighbors table
  * */
-int print_neighbor_info() {
+void print_neighbor_info() {
 
     cout << "Neighbor Info Table" << "\n"
          << "****************" << "\n";
@@ -208,7 +208,7 @@ void createSocket(int port) {
 /*
  * Sends its current distance vector to all its neighbours
  * */
-void sendAdv() {
+void send_dv() {
     struct sockaddr_in neighbor_addr;
 
     neighbor_addr.sin_family = AF_INET;
@@ -237,7 +237,8 @@ void sendAdv() {
 /*
  * This is called after receiving a distance vector from a neighbor. it updates the routing table
  * */
-int update_route(distance_vector_ recv_dist_vec) {
+void update_route(distance_vector_ recv_dist_vec) {
+    cout <<"Updating routing table....\n\n";
 
     int dist_to_recv;
     int route_index;
@@ -298,9 +299,9 @@ int update_route(distance_vector_ recv_dist_vec) {
 /*
  * Outputs the current distance vector
  * */
-int print_distance_vector(distance_vector_ dist_vec) {
+void print_distance_vector(distance_vector_ dist_vec) {
 
-    cout << "Generated Distance Vector" << "\n" << "****************" << "\n";
+    cout << "Current Distance Vector" << "\n" << "****************" << "\n";
     cout << dist_vec.sender << "\n";
     cout << dist_vec.num_of_dests << "\n";
 
@@ -331,7 +332,8 @@ void receive(int rsock){
         exit(0);
     }
 
-    cout<<"Routing table received from: " << recv_dist_vec.sender <<endl << endl;
+    cout<<"The following DV was received from: " << recv_dist_vec.sender <<endl;
+    print_distance_vector(recv_dist_vec);
 
     update_route(recv_dist_vec);
     print_routing_table();
@@ -343,7 +345,7 @@ void receive(int rsock){
  */
 void *recv_adv(void *recv_sock){
 
-    cout<<"Creating receiver thread\n\n";
+    cout<<"receiver thread created\n\n";
     while(1){
         int rsock=*(int*)recv_sock;
         receive(rsock);
@@ -351,9 +353,6 @@ void *recv_adv(void *recv_sock){
 
 }
 
-void init(){
-
-}
 int main(int argc, char *argv[]) {
     //initializes recieve thread
     pthread_t recv_thread;
@@ -367,18 +366,24 @@ int main(int argc, char *argv[]) {
 
     //get config directory
     strcpy(config_file_dir, argv[1]);
+
     //parse through config file
     read_config_file(config_file_dir);
+
     //display neighbor info
     print_neighbor_info();
-    //display initial distance vector
-    print_distance_vector(curr_dist_vec);
+
     //display intial routing table
     print_routing_table();
+
+    //display initial distance vector
+    print_distance_vector(curr_dist_vec);
+
     //create socket
     createSocket(port);
+
     //send first distance vector
-    sendAdv();
+    send_dv();
 
     //Initializes mutex lock
     if (pthread_mutex_init(&lck, NULL) != 0)
@@ -393,7 +398,7 @@ int main(int argc, char *argv[]) {
     //continue sending dv periodically
     while(1){
         sleep(SLEEP_TIME);
-        sendAdv();
+        send_dv();
 
     }
 
