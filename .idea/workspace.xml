@@ -12,8 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="384795ef-72de-4ac6-8137-197bb4b0cec0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Makefile" afterPath="$PROJECT_DIR$/Makefile" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,42 +26,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="208" column="23" lean-forward="false" selection-start-line="208" selection-start-column="23" selection-end-line="208" selection-end-column="23" />
-              <folding>
-                <element signature="e#987#1056#1" expanded="false" />
-                <element signature="e#1082#1157#1" expanded="false" />
-                <element signature="e#1182#1233#1" expanded="false" />
-                <element signature="e#1236#1344#1" expanded="false" />
-                <element signature="e#1388#3106#0" expanded="false" />
-                <element signature="e#2625#2746#0" expanded="false" />
-                <element signature="e#2756#2877#0" expanded="false" />
-                <element signature="e#3108#3476#0" expanded="false" />
-                <element signature="e#3478#3849#0" expanded="false" />
-                <element signature="e#3851#4014#0" expanded="false" />
-                <element signature="e#4791#4954#0" expanded="false" />
-                <element signature="e#5228#6033#0" expanded="false" />
-                <element signature="e#6035#7817#0" expanded="false" />
-                <element signature="e#7820#8156#0" expanded="false" />
-                <element signature="e#8159#8598#0" expanded="false" />
-                <element signature="e#8601#9090#0" expanded="false" />
-                <element signature="e#9092#9131#0" expanded="false" />
-                <element signature="e#9092#9290#0" expanded="false" />
-                <element signature="e#9293#10635#0" expanded="false" />
-                <element signature="e#9798#10131#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="a.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config2/a.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="1" column="4" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="40" lean-forward="false" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -137,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -210,7 +189,6 @@
         <option value="$PROJECT_DIR$/config/e.txt" />
         <option value="$PROJECT_DIR$/config/f.txt" />
         <option value="$PROJECT_DIR$/config/g.txt" />
-        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/config2/a.txt" />
         <option value="$PROJECT_DIR$/config2/b.txt" />
@@ -220,6 +198,7 @@
         <option value="$PROJECT_DIR$/config2/f.txt" />
         <option value="$PROJECT_DIR$/config2/g.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/Makefile" />
       </list>
     </option>
   </component>
@@ -315,12 +294,12 @@
       <workItem from="1523673636938" duration="17352000" />
       <workItem from="1523719322644" duration="16495000" />
       <workItem from="1523939312758" duration="11730000" />
-      <workItem from="1524414632044" duration="712000" />
+      <workItem from="1524414632044" duration="776000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52883000" />
+    <option name="totallyTimeSpent" value="52947000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="715" y="245" width="1471" height="892" extended-state="0" />
@@ -711,14 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
@@ -815,7 +786,15 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="40" lean-forward="false" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
           <folding />
         </state>
       </provider>
