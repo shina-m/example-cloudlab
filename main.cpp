@@ -46,8 +46,6 @@ using namespace std;
 #define HOST_NAME_LEN 2
 #define SLEEP_TIME 10
 
-struct sockaddr_in echoServAddr; /* Echo server address */
-struct sockaddr_in fromAddr;     /* Source address of echo */
 struct sockaddr_in address;
 pthread_mutex_t lck;
 int sock;
@@ -84,9 +82,9 @@ struct distance_vector_ {
 } curr_dist_vec;
 
 
-template<typename Out>
+//template<typename Out>
 
-void split(const std::string &s, char delim, Out result) {
+/*void split(const std::string &s, char delim, Out result) {
     std::stringstream ss(s);
     std::string item;
     while (std::getline(ss, item, delim)) {
@@ -98,7 +96,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> elems;
     split(s, delim, std::back_inserter(elems));
     return elems;
-}
+}*/
 
 bool read_config_file(char *LANfileName) {
     string delimiter = " ";
@@ -202,6 +200,7 @@ void createSocket(int port) {
     }
     int one = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEPORT,&one, sizeof(one));
+
     const int       optVal = 1;
     const socklen_t optLen = sizeof(optVal);
 
@@ -210,8 +209,8 @@ void createSocket(int port) {
     cout <<port <<"\n";
 
     int leng = sizeof(address);
-    //bzero(&address, leng);
-    memset(&address, 0, leng);
+    bzero(&address, leng);
+    //memset(&address, 0, leng);
     address.sin_family = PF_INET;
     address.sin_port = htons(port);
     address.sin_addr.s_addr = htons(INADDR_ANY);
@@ -253,7 +252,7 @@ void sendAdv() {
         }
     }
 
-     cout << "\nsent to all neighbors..." << endl << "\n";
+    cout << "\nsent to all neighbors..." << endl << "\n";
 }
 
 int update_route(distance_vector_ recv_dist_vec) {
@@ -316,131 +315,134 @@ int update_route(distance_vector_ recv_dist_vec) {
 }
 
 
-        int generate_distance_vector(){
-            int j = 0;
+int generate_distance_vector(){
+    int j = 0;
 
-            for (int i = 0; i < NODE_COUNT; i++) {
+    for (int i = 0; i < NODE_COUNT; i++) {
 
-                if (route_table[i].dest== '\0')
-                    continue;
-                curr_dist_vec.content[j] = {route_table[i].dest, route_table[i].dist};
-                j++;
+        if (route_table[i].dest== '\0')
+            continue;
+        curr_dist_vec.content[j] = {route_table[i].dest, route_table[i].dist};
+        j++;
 
-            }
+    }
 
-            curr_dist_vec.sender = toupper(hostname);
-            curr_dist_vec.num_of_dests=j;
+    curr_dist_vec.sender = toupper(hostname);
+    curr_dist_vec.num_of_dests=j;
 
-        }
-
-
-        int print_distance_vector(distance_vector_ dist_vec) {
-
-            cout << "Generated Distance Vector" << "\n" << "****************" << "\n";
-            cout << dist_vec.sender << "\n";
-            cout << dist_vec.num_of_dests << "\n";
-
-            for (int i = 0; i < NODE_COUNT; i++) {
-                if (dist_vec.content[i].dest == '\0')
-                    continue;
-
-                cout << dist_vec.content[i].dest << "\t" << dist_vec.content[i].dist << "\n";
-            }
-
-            cout <<"\n";
-        }
+}
 
 
-        void receive(int rsock){
+int print_distance_vector(distance_vector_ dist_vec) {
 
-            distance_vector_ recv_dist_vec;
+    cout << "Generated Distance Vector" << "\n" << "****************" << "\n";
+    cout << dist_vec.sender << "\n";
+    cout << dist_vec.num_of_dests << "\n";
 
-            unsigned int len=sizeof(struct sockaddr_in);
-            int no=1;
+    for (int i = 0; i < NODE_COUNT; i++) {
+        if (dist_vec.content[i].dest == '\0')
+            continue;
 
-            no = recvfrom(rsock,&recv_dist_vec,sizeof(recv_dist_vec),0,(struct sockaddr *)&address, &len);
-            if(no<0){
-                cout <<"Error3\n";
-                // displayError("recv error");
-            }
+        cout << dist_vec.content[i].dest << "\t" << dist_vec.content[i].dist << "\n";
+    }
 
-            cout<<"Routing table received from: " << recv_dist_vec.sender <<endl << endl;
+    cout <<"\n";
+}
 
-            update_route(recv_dist_vec);
-            print_routing_table();
-            generate_distance_vector();
-        }
+
+void receive(int rsock){
+
+    distance_vector_ recv_dist_vec;
+
+    unsigned int len=sizeof(struct sockaddr_in);
+    int no=1;
+
+    no = recvfrom(rsock,&recv_dist_vec,sizeof(recv_dist_vec),0,(struct sockaddr *)&address, &len);
+    if(no<0){
+        cout <<"Error3\n";
+        // displayError("recv error");
+    }
+
+    cout<<"Routing table received from: " << recv_dist_vec.sender <<endl << endl;
+
+    update_route(recv_dist_vec);
+    print_routing_table();
+    generate_distance_vector();
+}
 
 /*
  * Function to call a new thread
  */
-        void *recv_adv(void *recv_sock){
-            while(1){
-                cout<<"Creating recv thread\n\n";
-                int rsock=*(int*)recv_sock;
-                receive(rsock);
-            }
+void *recv_adv(void *recv_sock){
 
-        }
+    cout<<"Creating receiver thread\n\n";
+    while(1){
+        int rsock=*(int*)recv_sock;
+        receive(rsock);
+    }
+
+}
 
 
-        int main(int argc, char *argv[]) {
-            pthread_t recv_thread;
+int main(int argc, char *argv[]) {
+    pthread_t recv_thread;
 
-            char config_file_dir[500];
-            strcpy(config_file_dir, argv[1]);
+    char config_file_dir[500];
 
-            if (argc != 2)         //Test for correct number of parameters
-            {
-                cout << "Usage:  No config file \n";
-                exit(1);
-            }
+    if (argc != 2)         //Test for correct number of parameters
+    {
+        cout << "Usage:  No config file \n";
+        exit(1);
+    }
 
-            read_config_file(config_file_dir);
-            generate_distance_vector();
-            cout << "Port No: " << port << "\n\n";
-            print_neighbor_info();
-            createSocket(port);
+    strcpy(config_file_dir, argv[1]);
 
-            sendAdv();
-            print_distance_vector(curr_dist_vec);
 
-           /* distance_vector_ recv_dist_vec;
+    read_config_file(config_file_dir);
+    generate_distance_vector();
+    cout << "Port No: " << port << "\n\n";
+    print_neighbor_info();
+    createSocket(port);
 
-            recv_dist_vec.sender = 'B';
-            recv_dist_vec.num_of_dests = 4;
-            recv_dist_vec.content[0] = {'S', 1};
-            recv_dist_vec.content[1] ={'B',1};
-            recv_dist_vec.content[2] ={'C',1};
-            recv_dist_vec.content[3] ={'F',1};
+    sendAdv();
+    print_distance_vector(curr_dist_vec);
 
-            print_routing_table();
+    /* distance_vector_ recv_dist_vec;
 
-            update_route(recv_dist_vec);*/
+     recv_dist_vec.sender = 'B';
+     recv_dist_vec.num_of_dests = 4;
+     recv_dist_vec.content[0] = {'S', 1};
+     recv_dist_vec.content[1] ={'B',1};
+     recv_dist_vec.content[2] ={'C',1};
+     recv_dist_vec.content[3] ={'F',1};
 
-            print_routing_table();
+     print_routing_table();
 
-            //Initializes mutex lock
-           if (pthread_mutex_init(&lck, NULL) != 0)
-            {
-                printf("\n mutex init failed\n");
-                return 1;
-            }
+     update_route(recv_dist_vec);*/
 
-            pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
+    print_routing_table();
 
-            while(1){
-                // sleep(15);
+    //Initializes mutex lock
+    if (pthread_mutex_init(&lck, NULL) != 0)
+    {
+        printf("\n mutex init failed\n");
+        return 1;
+    }
 
-              //  pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
-                //Sends periodic advertisement
+    pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
-                sleep(SLEEP_TIME);
-                sendAdv();
+    while(1){
+        // sleep(15);
 
-            }
+        //  pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
+        //Sends periodic advertisement
 
-            close(sock);
-            pthread_mutex_destroy(&lck);
-            return 0;
-        }
+        sleep(SLEEP_TIME);
+        sendAdv();
+
+    }
+
+    close(sock);
+    pthread_mutex_destroy(&lck);
+    return 0;
+}
