@@ -154,8 +154,8 @@ void print_routing_table() {
  * */
 void print_neighbor_info() {
 
-    cout << "Neighbor Info Table" << "\n"
-         << "****************" << "\n";
+    cout << "Neighbors" << "\n"
+         << "**********" << "\n";
     for (int i = 0; i < (sizeof(neighbors) / sizeof(label_address)); i++) {
         if (neighbors[i].name== '\0')
             continue;
@@ -301,7 +301,7 @@ void update_route(distance_vector_ recv_dist_vec) {
  * */
 void print_distance_vector(distance_vector_ dist_vec) {
 
-    cout << "Current Distance Vector" << "\n" << "****************" << "\n";
+    cout << "****************" << "\n";
     cout << dist_vec.sender << "\n";
     cout << dist_vec.num_of_dests << "\n";
 
@@ -377,6 +377,7 @@ int main(int argc, char *argv[]) {
     print_routing_table();
 
     //display initial distance vector
+    cout << "Current Distance Vector" << "\n";
     print_distance_vector(curr_dist_vec);
 
     //create socket
