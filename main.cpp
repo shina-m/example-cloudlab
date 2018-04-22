@@ -13,24 +13,28 @@
 
 using namespace std;
 
-#define NODE_COUNT 10
-#define HOST_NAME_LEN 2
-#define SLEEP_TIME 15
+#define NODE_COUNT 10 //Maximum number of nodes the network can have
+#define SLEEP_TIME 15 //interval between each dv table advert
 
 struct sockaddr_in address;
 pthread_mutex_t lck;
-int sock;
-unsigned int port;
-char hostname;
+int sock; //for socket to be created
+unsigned int port; // port number for advertisement
+char hostname; //the hostname for node currently running this program
 
+/*
+ * stores the routing information for each destination
+ * */
 struct route_info{
-
     char dest;
     char nextHop;
     int dist;
 
 }route_table[NODE_COUNT];
 
+/*
+ * maps node name to its ip address
+ * */
 struct label_address{
 
     char name;
@@ -39,18 +43,45 @@ struct label_address{
 
 }neighbors [NODE_COUNT];
 
+
 struct element_ {
     char  dest;
     int   dist;
 };
 
+/*
+ * Struct for distance vector to be advertised
+ * */
 struct distance_vector_ {
     char sender;
     int  num_of_dests;
     struct element_ content[NODE_COUNT];
 } curr_dist_vec;
 
+/*
+ * This generates an up-to-date distance vector based on the current routing table
+ * */
+int generate_distance_vector(){
+    int j = 0;
 
+    for (int i = 0; i < NODE_COUNT; i++) {
+
+        if (route_table[i].dest== '\0')
+            continue;
+        curr_dist_vec.content[j] = {route_table[i].dest, route_table[i].dist};
+        j++;
+
+    }
+    curr_dist_vec.sender = toupper(hostname);
+    curr_dist_vec.num_of_dests=j;
+
+}
+
+
+/*
+ * Reads the config file for this node and uses it to generate the neighbors table and
+ * initial routing table
+ * */
 bool read_config_file(char *config_file) {
     string delimiter = " ";
     string token;
@@ -94,8 +125,17 @@ bool read_config_file(char *config_file) {
         j++;
     }
 
+    //generate intial distance vector
+    generate_distance_vector();
+
+    //display port number
+    cout << "\nPort No: " << port << "\n\n";
+
 }
 
+/*
+ * Prints out the routing table
+ * */
 int print_routing_table() {
 
     cout << "Routing Table" << "\n" << "****************" << "\n";
@@ -109,6 +149,9 @@ int print_routing_table() {
     cout <<"\n";
 }
 
+/*
+ * Prints out the neighbors table
+ * */
 int print_neighbor_info() {
 
     cout << "Neighbor Info Table" << "\n"
@@ -117,15 +160,17 @@ int print_neighbor_info() {
         if (neighbors[i].name== '\0')
             continue;
 
-        cout << neighbors[i].name << "\t" << neighbors[i].ip << "\t" << neighbors[i].addr <<"\n";
+        cout << neighbors[i].name << "\t" << neighbors[i].ip <<"\n";
     }
 
     cout <<"\n";
 }
 
-int getRouteLoc(char a){
+/*
+ * This gets the location of a route information from the route table
+ * */
+int get_route(char a){
     for (int k = 0; k < NODE_COUNT; k++) {
-
         if (a == route_table[k].dest) {
             return k;
         }
@@ -133,37 +178,36 @@ int getRouteLoc(char a){
     return -1;
 }
 
+/*
+ * Creates a socket to be used for sending and receiving distance vectors
+ * */
 void createSocket(int port) {
-
-
     if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0){
-        cout <<"Error 1 \n";
-        //  displayError("There is problem while sending request!");
+        cout <<"Error: Socket could not be created \n";
+        exit(0);
     }
 
+    //This allows multiple processes to bind to the same port concurrently
     int one = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEPORT,&one, sizeof(one));
     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void*) &one, sizeof(one));
 
-    cout <<port <<"\n";
-
+    //sets up socket parameters and binds process to specified port
     int leng = sizeof(address);
     bzero(&address, leng);
-    //memset(&address, 0, leng);
     address.sin_family = PF_INET;
     address.sin_port = htons(port);
     address.sin_addr.s_addr = htons(INADDR_ANY);
 
-
-
     if(::bind(sock, (struct sockaddr *) &address, leng) < 0){
         printf("\"createSocket() failed\n\"");
-         exit;
-        //displayError("There is problem while sending request!");
+         exit(0);
     }
 }
 
-
+/*
+ * Sends its current distance vector to all its neighbours
+ * */
 void sendAdv() {
     struct sockaddr_in neighbor_addr;
 
@@ -181,20 +225,24 @@ void sendAdv() {
         int no = sendto(sock, &curr_dist_vec, sizeof(curr_dist_vec), 0,
                         (const struct sockaddr *) &neighbor_addr, len);
         if (no < 0) {
-            cout <<"Error 2 \n";
-            exit;
-            //   displayError("There is problem while sending request!");
+            cout <<"Error Sending an advert to " <<neighbors[i].name << "\n";
+            //exit(0);
         }
     }
 
     cout << "\nsent to all neighbors..." << endl << "\n";
 }
 
+
+/*
+ * This is called after receiving a distance vector from a neighbor. it updates the routing table
+ * */
 int update_route(distance_vector_ recv_dist_vec) {
 
     int dist_to_recv;
+    int route_index;
 
-    //get cost to sender_node
+    //get the cost from this node to the sender node
     for (int i = 0; i < NODE_COUNT; i++) {
         if (neighbors[i].name != '\0' && neighbors[i].name ==  recv_dist_vec.sender) {
             for (int j = 0; j < NODE_COUNT; j++) {
@@ -202,29 +250,33 @@ int update_route(distance_vector_ recv_dist_vec) {
                     dist_to_recv = route_table[j].dist;
                 }
             }
-
         }
     }
 
+    // add a lock for this method so that only one process can edit the routing table at a time
     pthread_mutex_lock(&lck);
 
-    int rid;
-
     for(int m=0;m<NODE_COUNT;m++) {
+        //if the current vector is for this node, skipp
         if (recv_dist_vec.content[m].dest == '\0' || recv_dist_vec.content[m].dest == hostname) {
             continue;
         }
 
+        route_index = get_route(recv_dist_vec.content[m].dest);
+
         //if route for this node already exists
-        rid = getRouteLoc(recv_dist_vec.content[m].dest);
-        if (rid != -1) {
-            if ((recv_dist_vec.content[m].dist + dist_to_recv) < route_table[rid].dist) {
-                // if yes, update cost and nexthop
-                route_table[rid].dist = recv_dist_vec.content[m].dist + dist_to_recv;
-                route_table[rid].nextHop = recv_dist_vec.sender;
+        if (route_index != -1) {
+            //If the calculate cost is less than the current cost, update routing table
+            if ((recv_dist_vec.content[m].dist + dist_to_recv) < route_table[route_index].dist) {
+
+                route_table[route_index].dist = recv_dist_vec.content[m].dist + dist_to_recv;
+                route_table[route_index].nextHop = recv_dist_vec.sender;
             }
 
-        } else
+        }
+        // Else if the destination is not already in the routing table, add its entry
+        else
+        {
             for (int k = 0; k < NODE_COUNT; k++) {
 
                 if (route_table[k].dest == '\0') {
@@ -234,31 +286,18 @@ int update_route(distance_vector_ recv_dist_vec) {
                     break;
                 }
             }
+        }
     }
 
+    //remove lock
     pthread_mutex_unlock(&lck);
 
 }
 
 
-int generate_distance_vector(){
-    int j = 0;
-
-    for (int i = 0; i < NODE_COUNT; i++) {
-
-        if (route_table[i].dest== '\0')
-            continue;
-        curr_dist_vec.content[j] = {route_table[i].dest, route_table[i].dist};
-        j++;
-
-    }
-
-    curr_dist_vec.sender = toupper(hostname);
-    curr_dist_vec.num_of_dests=j;
-
-}
-
-
+/*
+ * Outputs the current distance vector
+ * */
 int print_distance_vector(distance_vector_ dist_vec) {
 
     cout << "Generated Distance Vector" << "\n" << "****************" << "\n";
@@ -276,6 +315,9 @@ int print_distance_vector(distance_vector_ dist_vec) {
 }
 
 
+/*
+ * Function to await receipt of dv from neighbours
+ * */
 void receive(int rsock){
 
     distance_vector_ recv_dist_vec;
@@ -285,8 +327,8 @@ void receive(int rsock){
 
     no = recvfrom(rsock,&recv_dist_vec,sizeof(recv_dist_vec),0,(struct sockaddr *)&address, &len);
     if(no<0){
-        cout <<"Error3\n";
-        // displayError("recv error");
+        cout <<"Error Creating socket listener\n";
+        exit(0);
     }
 
     cout<<"Routing table received from: " << recv_dist_vec.sender <<endl << endl;
@@ -297,7 +339,7 @@ void receive(int rsock){
 }
 
 /*
- * Function to call a new thread
+ * Function to call a new thread for receiving dv
  */
 void *recv_adv(void *recv_sock){
 
@@ -309,11 +351,13 @@ void *recv_adv(void *recv_sock){
 
 }
 
+void init(){
 
+}
 int main(int argc, char *argv[]) {
+    //initializes recieve thread
     pthread_t recv_thread;
-
-    char config_file_dir[500];
+    char config_file_dir[1000];
 
     if (argc != 2)         //Test for correct number of parameters
     {
@@ -321,20 +365,20 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    //get config directory
     strcpy(config_file_dir, argv[1]);
-
-
+    //parse through config file
     read_config_file(config_file_dir);
-    generate_distance_vector();
-    cout << "Port No: " << port << "\n\n";
+    //display neighbor info
     print_neighbor_info();
-    createSocket(port);
-
-    sendAdv();
+    //display initial distance vector
     print_distance_vector(curr_dist_vec);
-
-
+    //display intial routing table
     print_routing_table();
+    //create socket
+    createSocket(port);
+    //send first distance vector
+    sendAdv();
 
     //Initializes mutex lock
     if (pthread_mutex_init(&lck, NULL) != 0)
@@ -343,10 +387,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    //create parallel thread for receiving dv
     pthread_create(&recv_thread,NULL,recv_adv,(void*)&sock);
 
+    //continue sending dv periodically
     while(1){
-
         sleep(SLEEP_TIME);
         sendAdv();
 
