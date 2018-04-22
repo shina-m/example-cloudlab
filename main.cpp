@@ -138,7 +138,7 @@ void read_config_file(char *config_file) {
  * */
 void print_routing_table() {
 
-    cout << "Current Routing Table" << "\n" << "****************" << "\n";
+    cout << "Current Routing Table" << "\n" << "****************\n";
     for (int i = 0; i < (sizeof(route_table) / sizeof(route_info)); i++) {
         if (route_table[i].dest== '\0')
             continue;
@@ -146,7 +146,7 @@ void print_routing_table() {
         cout << route_table[i].dest << "\t" << route_table[i].dist << "\t" << route_table[i].nextHop <<"\n";
     }
 
-    cout <<"\n";
+    cout << "****************\n\n";
 }
 
 /*
@@ -163,7 +163,7 @@ void print_neighbor_info() {
         cout << neighbors[i].name << "\t" << neighbors[i].ip <<"\n";
     }
 
-    cout <<"\n";
+    cout << "**********" << "\n\n";
 }
 
 /*
@@ -312,7 +312,7 @@ void print_distance_vector(distance_vector_ dist_vec) {
         cout << dist_vec.content[i].dest << "\t" << dist_vec.content[i].dist << "\n";
     }
 
-    cout <<"\n";
+    cout << "****************" << "\n\n";
 }
 
 
