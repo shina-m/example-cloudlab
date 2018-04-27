@@ -1,3 +1,7 @@
+Madamori, Oluwashina
+CS 571 Spring 2018
+Programming Assignment 2
+
 ==================
 Build Instructions
 ==================
@@ -8,7 +12,7 @@ To build the program, run "make" within assignment root directory.
 Usage Instructions
 ==================
 To run the program, run "./dvr [Config File Dir]" in the root directory after compiling
-e.g "./dvr config/a.txt"
+e.g "./dvr config/a.txt" for node A
 
 =====
 Notes
@@ -20,7 +24,7 @@ A maximum of 10 nodes are in the network.
 The host name for each node is only one character.
 
 Config files:
-I have 2 set of config files "config/" and "config1/". in "config1/", all the distance between neighbours is set to 1, while in "config/", random values are set.
+I have 2 set of config files "config/" and "config1/". in "config1/", all the distance between neighbours is set to 1, while in "config/", random values are set. The IP addresses there are valid from what is on my geni machines
 
 
 Limitations:
