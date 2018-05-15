@@ -1,3 +1,0 @@
-/Users/shina/Documents/UK/571/dvr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/shina/Documents/UK/571/dvr/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/shina/Documents/UK/571/dvr/cmake-build-debug/CMakeFiles/dv.dir
